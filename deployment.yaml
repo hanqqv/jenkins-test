@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jenkins-demo
+  template:
+    metadata:
+      labels:
+        app: jenkins-demo
+    spec:
+      containers:
+      - name: jenkins-demo-container
+        image: swr.ap-southeast-2.myhuaweicloud.com/han-test/jenkins-demo:latest
+        ports:
+        - containerPort: 1323
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
+          requests:
+            cpu: "100m"
+            memory: "200Mi"
