@@ -1,7 +1,7 @@
 # Step 1: Build stage
 # Use the official Golang image to create a build artifact.
 # This image is based on Debian, so it has a lot of the necessary tools and libraries.
-FROM golang:1.23-alpine AS builder
+FROM golang:1.23rc2-alpine3.19 AS builder
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
