@@ -17,9 +17,6 @@ spec:
       - name: jenkins-demo-deployment-test-container
         image: swr.ap-southeast-2.myhuaweicloud.com/han-test/jenkins-demo:latest
         imagePullPolicy: Always
-        env:
-        - name: FOR_GODS_SAKE_PLEASE_REDEPLOY
-          value: 'THIS_STRING_IS_REPLACED_DURING_BUILD'
         ports:
         - containerPort: 1323
         resources:
