@@ -15,8 +15,8 @@ RUN go mod download
 # Copy the source code into the container
 COPY . .
 
-# Build the Go app
-RUN go build -o app .
+# Build the Go app for linux amd64 architecture
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main .
 
 # Step 2: Use a Docker multi-stage build to create a lean production image.
 FROM alpine:latest
@@ -27,10 +27,10 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 # Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/app .
+COPY --from=builder /app/main .
 
 # Expose port 1323 to the outside world
 EXPOSE 1323
 
 # Command to run the executable
-CMD ["./app"]
+CMD ["./main"]
