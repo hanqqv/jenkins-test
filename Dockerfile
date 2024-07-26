@@ -1,7 +1,7 @@
 # Step 1: Build stage
 # Use the official Golang image to create a build artifact.
 # This image is based on Debian, so it has a lot of the necessary tools and libraries.
-FROM golang:1.23rc2-alpine3.19 AS builder
+FROM golang:1.22-alpine AS builder
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
@@ -16,7 +16,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main .
 
 # Step 2: Use a Docker multi-stage build to create a lean production image.
 FROM alpine:latest  
