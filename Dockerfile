@@ -16,10 +16,10 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o main .
+RUN go build -o app .
 
 # Step 2: Use a Docker multi-stage build to create a lean production image.
-FROM alpine:latest  
+FROM alpine:latest
 
 # Add ca-certificates in case you need to call HTTPS endpoints.
 RUN apk --no-cache add ca-certificates
@@ -27,10 +27,10 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 # Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/main .
+COPY --from=builder /app/app .
 
 # Expose port 1323 to the outside world
 EXPOSE 1323
 
 # Command to run the executable
-CMD ["./main"]
+CMD ["./app"]
