@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-demo-deployment
+  name: jenkins-demo-deployment-test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins-demo-deployment
+      app: jenkins-demo-deployment-test
   template:
     metadata:
       labels:
-        app: jenkins-demo-deployment
+        app: jenkins-demo-deployment-test
     spec:
       containers:
-      - name: jenkins-demo-deployment-container
+      - name: jenkins-demo-deployment-test-container
         image: swr.ap-southeast-2.myhuaweicloud.com/han-test/jenkins-demo:latest
         ports:
         - containerPort: 1323
